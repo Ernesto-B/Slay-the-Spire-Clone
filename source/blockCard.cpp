@@ -39,13 +39,21 @@ BlockCard& BlockCard::operator=(const BlockCard& other) {
 }
 
 BlockCard::~BlockCard() {
-
+    delete[] this->cardType;
+    if (this->statusEffect) {
+        delete this->statusEffect;
+    }
 }
 
 const char* BlockCard::getCardType() const {
-
+    return this->cardType;
 }
 
 void BlockCard::applyEffect(Mon* target) const {
+    if (this->statusEffect) {
+        StatusEffect* effectCopy = statusEffect->clone();
+        effectCopy->setDuration(effectDuration);
 
+        target->addStatusEffect(effectCopy);
+    }    
 }
