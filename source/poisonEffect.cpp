@@ -20,3 +20,11 @@ void PoisonEffect::endTurn(Mon* target) {
 bool PoisonEffect::isExpired() const {
     return duration <= 0;
 }
+
+StatusEffect* PoisonEffect::clone() const {
+    return new PoisonEffect(poisonDamage, duration);
+}
+
+void PoisonEffect::setDuration(int duration) {
+    this->duration = duration;
+}

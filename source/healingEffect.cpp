@@ -21,3 +21,11 @@ void HealingEffect::endTurn(Mon* target) {
 bool HealingEffect::isExpired() const {
     return duration <= 0;
 }
+
+StatusEffect* HealingEffect::clone() const {
+    return new HealingEffect(healingAmount, duration);
+}
+
+void HealingEffect::setDuration(int duration) {
+    this->duration = duration;
+}

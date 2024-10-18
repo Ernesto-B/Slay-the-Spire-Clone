@@ -34,7 +34,7 @@ class Mon {
         void printInfo() const;
         void printAttacks() const;
 
-        void addBlock(int amount);
+        void changeBlock(int amount);
 
         void addStatusEffect(StatusEffect* effect);
         void processEndTurnEffects();

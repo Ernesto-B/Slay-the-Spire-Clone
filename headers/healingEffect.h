@@ -14,6 +14,9 @@ class HealingEffect : public StatusEffect {
         void apply(Mon* target) override;
         void endTurn(Mon* target) override;
         bool isExpired() const override; 
+
+        StatusEffect* clone() const override;
+        void setDuration(int duration) override;
 };
 
 #endif

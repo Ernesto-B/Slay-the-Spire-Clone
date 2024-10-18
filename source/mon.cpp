@@ -72,8 +72,12 @@ void Mon::printAttacks() const {
     printf("%s\t%d\n", this->attack2->getAtkName(), this->attack2->getDmg());
 }
 
-void Mon::addBlock(int amount) {
-    this->block += amount;
+void Mon::changeBlock(int amount) {
+    if (this->block + amount < 0) {
+        this->block = 0;
+    } else {
+        this->block += amount;
+    }
 }
 
 void Mon::addStatusEffect(StatusEffect* effect) {
