@@ -1,9 +1,7 @@
 COMPILER = g++
 FLAGS = -Iheaders -Wall #-g
-SRC = source/attack.cpp source/card.cpp source/enemy.cpp source/gameFrame.cpp source/main.cpp source/mon.cpp source/player.cpp
+SRC = $(wildcard source/*.cpp) 	# SRC holds all the files inside source folder
 
-# MISSING ATTACK CARD AND BLOCK CARD SOURCES
-# source/main.cpp source/attack.cpp source/mon.cpp source/player.cpp source/enemy.cpp source/
 TARGET = a
 
 all: $(TARGET)

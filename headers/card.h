@@ -14,7 +14,7 @@ class Card {
         int dmg;
         int block;
     public:
-        Card(char* name, char* desc, int cost, int dmg, int block);
+        Card(const char* name, const char* desc, int cost, int dmg, int block);
         ~Card();
         
         int getCost() const;

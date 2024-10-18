@@ -1,5 +1,6 @@
 // mon.cpp
 # include <iostream>
+#include <algorithm>  // for std::remove_if
 using namespace std;
 # include <cstring>
 # include "mon.h"
@@ -14,6 +15,7 @@ Mon::Mon(const char* name, int baseHealth, int level, int type = 0) {
     this->type = type;
     this->attack1 = new Attack(0, "N/a", 0);    // Not sure what to do with this
     this->attack2 = new Attack(0, "N/a", 0);    // Not sure what to do with this
+    this->block = 0;
 }
 
 Mon::~Mon() {
@@ -70,23 +72,56 @@ void Mon::printAttacks() const {
     printf("%s\t%d\n", this->attack2->getAtkName(), this->attack2->getDmg());
 }
 
-// Status effects, to be called at the end of turn
-void Mon::applyPoison(int amount) {
-
-}
-
-void Mon::applyWeaken(int amount) {
-
-}
-
-void Mon::applyStrength(int amount) {
-
-}
-
 void Mon::addBlock(int amount) {
+    this->block += amount;
+}
 
+void Mon::addStatusEffect(StatusEffect* effect) {
+    this->activeEffects.push_back(effect);
+    effect->apply(this);
+}
+
+void Mon::processEndTurnEffects() {
+    for (auto effect : activeEffects) {
+        effect->endTurn(this);
+    }
+    cleanupExpiredEffects();
+}
+
+void Mon::cleanupExpiredEffects() {
+    activeEffects.erase(
+        remove_if(activeEffects.begin(), activeEffects.end(), [](StatusEffect* effect) {
+            if (effect->isExpired()) {
+                delete effect; // Clean up expired effects
+                return true;  // Remove this effect from the list
+            }
+            return false;  // Keep this effect in the list
+        }),
+        activeEffects.end());
 }
 
 void Mon::takeDmg(int amount) {
+    if (this->block >= amount) {
+        this->block -= amount;
+    } else {
+        int remainingDmg = amount - this->block;
+        this->block = 0;
+        this->health -= remainingDmg;
 
+        if (this->currentHealth < 0) {
+            this->currentHealth = 0;    // to prevent it from going negative
+        }
+    }
+}
+
+void Mon::heal(int amount) {
+    if (this->currentHealth == this->health) {
+        return;
+    } else {
+        if (this->currentHealth + amount > this->health) {
+            this->currentHealth = this->health;
+        } else {
+            this->currentHealth += amount;
+        }
+    }
 }

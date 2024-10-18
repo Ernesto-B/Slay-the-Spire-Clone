@@ -3,8 +3,11 @@
 #define MON_H
 
 #include <iostream>
+#include <algorithm>  // for std::remove_if
 #include <cstring>
+#include <vector>
 #include "attack.h"
+#include "statusEffect.h"
 
 class Mon {
     private:
@@ -15,12 +18,8 @@ class Mon {
         int type;   // type weakness or resistance?
         Attack* attack1;    // Not sure if used for enemy class
         Attack* attack2;    // Not sure if used for enemy class
-
-        // Status effects
-        int poison;
-        int weaken;
-        int strength;
         int block;
+        vector<StatusEffect*> activeEffects;    // Maybe limit the size of this?
 
     public:
         Mon(const char* name, int baseHealth, int level, int type = 0);
@@ -35,11 +34,14 @@ class Mon {
         void printInfo() const;
         void printAttacks() const;
 
-        void applyPoison(int amount);
-        void applyWeaken(int amount);
-        void applyStrength(int amount);
         void addBlock(int amount);
+
+        void addStatusEffect(StatusEffect* effect);
+        void processEndTurnEffects();
+        void cleanupExpiredEffects();
+
         void takeDmg(int amount);
+        void heal(int amount);
 };
 
 #endif

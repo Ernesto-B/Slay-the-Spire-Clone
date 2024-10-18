@@ -3,7 +3,7 @@ using namespace std;
 #include <cstring>
 #include "card.h"
 
-Card::Card(char* name, char* desc, int cost, int dmg, int block) : cost(cost), dmg(dmg), block(block) {
+Card::Card(const char* name, const char* desc, int cost, int dmg, int block) : cost(cost), dmg(dmg), block(block) {
     this->name = new char[50];
     strcpy(this->name, name);
     this->desc = new char[200];

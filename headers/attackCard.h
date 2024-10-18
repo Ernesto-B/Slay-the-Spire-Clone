@@ -7,7 +7,10 @@ class AttackCard : public Card {
     private:    
         char* cardType;
     public:
-        AttackCard(Card* card);
+        AttackCard(const char* name, const char* desc, int cost, int dmg, int block);
+        ~AttackCard();
+        
+        const char* getCardType() const;
 };
 
 #endif
