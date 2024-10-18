@@ -27,7 +27,7 @@ int Card::getBlock() const {
     return this->block;
 }
 
-void Card::getCardInfo() const {
+void Card::printCardInfo() const {
     printf("\n%s\t%d\n", this->name, this->cost);
     printf("%s\n", this->desc);
     printf("%d\t%d\n", this->dmg, this->block);

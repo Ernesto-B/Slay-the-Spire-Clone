@@ -20,7 +20,7 @@ class Card {
         int getCost() const;
         int getDmg() const;
         int getBlock() const;
-        void getCardInfo() const;
+        void printCardInfo() const;
 };
 
 #endif
