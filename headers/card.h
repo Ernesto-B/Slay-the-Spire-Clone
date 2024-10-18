@@ -13,6 +13,7 @@ class Card {
         int cost;
         int dmg;
         int block;
+        
     public:
         Card(const char* name, const char* desc, int cost, int dmg, int block);
         Card(const Card& other);    // Copy constructor

@@ -10,6 +10,7 @@ class AttackCard : public Card {
         char* cardType;
         StatusEffect* statusEffect;
         int effectDuration;
+        
     public:
         AttackCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr, int effectDuration = 0);
         AttackCard(const AttackCard& other);    // Copy constructor

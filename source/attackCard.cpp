@@ -1,17 +1,10 @@
 // attackCard.cpp
 #include "attackCard.h"
-#include "card.h"
+// #include "card.h"
 
-AttackCard::AttackCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr, int effectDuration = 0) : Card(name, desc, cost, dmg, block) , statusEffect(statusEffect), effectDuration(effectDuration) {
+AttackCard::AttackCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr, int effectDuration = 0) : Card(name, desc, cost, dmg, block), statusEffect(statusEffect), effectDuration(effectDuration) {
     this->cardType = new char[strlen("Attack") + 1];
     strcpy(this->cardType, "Attack");
-}
-
-AttackCard::~AttackCard() {
-    delete[] this->cardType;
-    if (this->statusEffect) {
-        delete this->statusEffect;
-    }
 }
 
 AttackCard::AttackCard(const AttackCard& other) : Card(other), effectDuration(other.effectDuration) {
@@ -32,6 +25,7 @@ AttackCard& AttackCard::operator=(const AttackCard& other) {
         delete this->statusEffect;
 
         Card::operator=(other);
+        
         this->cardType = new char[strlen("Attack") + 1];
         strcpy(this->cardType, other.cardType);
 
@@ -44,6 +38,14 @@ AttackCard& AttackCard::operator=(const AttackCard& other) {
     }
     return *this;
 }
+
+AttackCard::~AttackCard() {
+    delete[] this->cardType;
+    if (this->statusEffect) {
+        delete this->statusEffect;
+    }
+}
+
 
 const char* AttackCard::getCardType() const {
     return this->cardType;
