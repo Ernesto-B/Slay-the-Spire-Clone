@@ -5,6 +5,8 @@
 #include "attack.h"
 #include "player.h"     // To target the player??
 
+class Player;
+
 class Enemy: public Mon {
     private:
         vector<Attack*> attacks;

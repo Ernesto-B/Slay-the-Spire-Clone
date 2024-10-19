@@ -2,7 +2,7 @@
 #include <iostream>
 #include "poisonEffect.h"
 
-PoisonEffect::PoisonEffect(int poisonDamage = 3, int duration = 3) 
+PoisonEffect::PoisonEffect(int poisonDamage, int duration) 
     : poisonDamage(poisonDamage), duration(duration) {}
 
 void PoisonEffect::apply(Mon* target) {

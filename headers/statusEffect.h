@@ -2,8 +2,9 @@
 // INTERFACE
 #ifndef STATUSEFFECT_H
 #define STATUSEFFECT_H
-
 #include "mon.h"
+
+class Mon;
 
 class StatusEffect {
     public:

@@ -1,7 +1,7 @@
 // blockCard.cpp
 #include "blockCard.h"
 
-BlockCard::BlockCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr) : Card(name, desc, cost, dmg, block), statusEffect(statusEffect) {
+BlockCard::BlockCard(const char* name, const char* desc, int cost, int dmg, int block, StatusEffect* statusEffect) : Card(name, desc, cost, dmg, block), statusEffect(statusEffect) {
     this->cardType = new char[strlen("Block") + 1];
     strcpy(this->cardType, "Block");
 }

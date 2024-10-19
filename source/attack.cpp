@@ -4,7 +4,7 @@ using namespace std;
 # include <cstring>
 # include "attack.h"
 
-Attack::Attack(const char* attackName, int type, int dmg, StatusEffect* statusEffect = nullptr, int effectDuration = 0) : dmg(dmg), type(type), effectDuration(effectDuration) {
+Attack::Attack(const char* attackName, int type, int dmg, StatusEffect* statusEffect, int effectDuration) : type(type), dmg(dmg), effectDuration(effectDuration) {
     this->attackName = new char[strlen(attackName) + 1];
     strcpy(this->attackName, attackName);
 }

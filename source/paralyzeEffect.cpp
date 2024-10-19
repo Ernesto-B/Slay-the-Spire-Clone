@@ -2,7 +2,7 @@
 #include <iostream>
 #include "paralyzeEffect.h"
 
-ParalyzeEffect::ParalyzeEffect(int duration = 3) 
+ParalyzeEffect::ParalyzeEffect(int duration) 
     : duration(duration) {}
 
 void ParalyzeEffect::apply(Mon* target) {

@@ -6,7 +6,7 @@ using namespace std;
 # include "mon.h"
 # include "attack.h"
 
-Mon::Mon(const char* name, int baseHealth = 0, int level = 1, int type = 0) {
+Mon::Mon(const char* name, int baseHealth, int level, int type) {
     this->name = new char[strlen(name) + 1];
     strcpy(this->name, name);
     this->health = 10 * level + baseHealth;

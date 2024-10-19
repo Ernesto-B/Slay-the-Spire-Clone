@@ -2,7 +2,7 @@
 #include <iostream>
 #include "healingEffect.h"
 
-HealingEffect::HealingEffect(int healingAmount = 2, int duration = 3) : healingAmount(healingAmount), duration(duration) {
+HealingEffect::HealingEffect(int healingAmount, int duration) : healingAmount(healingAmount), duration(duration) {
 
 }
 

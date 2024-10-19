@@ -1,7 +1,7 @@
 // deck.cpp
 #include "deck.h"
 
-Deck::Deck(char* deckName) {
+Deck::Deck(const char* deckName) {
     this->deckName = new char[strlen(deckName) + 1];
     strcpy(this->deckName, deckName);
 }

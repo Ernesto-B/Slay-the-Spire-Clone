@@ -37,7 +37,7 @@ void GameFrame::playerTurn() {
             continue;
         }
 
-        if (cardIndex < 0 || cardIndex >= player->getHand().size()) {
+        if (cardIndex < 0 || static_cast<size_t>(cardIndex) >= player->getHand().size()) {
             printMessage("Invalid card selection. Try again.");
             continue;
         }
@@ -47,7 +47,7 @@ void GameFrame::playerTurn() {
 
         // Prompt for target selection.
         int targetIndex = promptTargetSelection(enemies);
-        if (targetIndex < 0 || targetIndex >= enemies.size()) {
+        if (targetIndex < 0 || static_cast<size_t>(targetIndex) >= enemies.size()) {
             printMessage("Invalid target selection. Try again.");
             continue;
         }
@@ -104,11 +104,11 @@ void GameFrame::endGame() {
 void GameFrame::displayHand(const Player* player) const {
     const vector<Card*>& hand = player->getHand();
     printf("\n---- Your Hand ----\n");
-    for (int i = 0; i < hand.size(); ++i) {
-        printf("[%d] %s (Cost: %d)\t", i, hand[i]->getName(), hand[i]->getCost());
+    for (size_t i = 0; i < hand.size(); ++i) {
+        printf("[%lu] %s (Cost: %d)\t", static_cast<unsigned long>(i), hand[i]->getName(), hand[i]->getCost());
     }
     printf("\n");
-    for (int i = 0; i < hand.size(); ++i) {
+    for (size_t i = 0; i < hand.size(); ++i) {
         printf("    %s\n", hand[i]->getDescription());
     }
     printf("\n-------------------\n");
@@ -116,11 +116,13 @@ void GameFrame::displayHand(const Player* player) const {
 
 void GameFrame::displayEnemies(const vector<Enemy*>& enemies) const {
     printf("\n---- Enemies ----\n");
-    for (int i = 0; i < enemies.size(); ++i) {
-        printf("[%d] %s (HP: %d/%d)\n", i, enemies[i]->getName(), enemies[i]->getCurrentHealth(), enemies[i]->getHealth());
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        printf("[%lu] %s (HP: %d/%d)\n", static_cast<unsigned long>(i), enemies[i]->getName(), enemies[i]->getCurrentHealth(), enemies[i]->getHealth());
     }
     printf("-----------------\n");
 }
+
+
 
 std::string GameFrame::promptCardSelection() const {
     char input[10];

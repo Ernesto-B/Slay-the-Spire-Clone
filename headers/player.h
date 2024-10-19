@@ -8,6 +8,7 @@
 #include "gameFrame.h"
 using namespace std;
 
+class GameFrame;
 
 class Player : public Mon {
     private:
@@ -18,7 +19,7 @@ class Player : public Mon {
         vector<Card*> discardPile;
 
     public:
-        Player(const char* name, int baseHealth = 0, int level = 1, int type = 0, int energy = 3, Deck* initialDeck);
+        Player(const char* name, int baseHealth = 0, int level = 1, int type = 0, int energy = 3, Deck* initialDeck = nullptr);
         ~Player();
 
         void takeTurn(GameFrame* gameFrame, vector<Mon*>& enemies);

@@ -2,8 +2,14 @@
 #ifndef GAMEFRAME_H
 #define GAMEFRAME_H
 #include <limits>   // for input validation with std::cin
+#include <string>
+#include <vector>
+using namespace std;
 #include "player.h"
 #include "enemy.h"
+
+class Player;
+class Enemy;
 
 class GameFrame {
     private:

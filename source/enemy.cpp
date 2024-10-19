@@ -2,7 +2,7 @@
 #include "enemy.h"
 
 // baseHealth is added to the health calculation to make more tanky mons
-Enemy::Enemy(const char* name, int baseHealth = 0, int level = 1, int type = 0) : Mon(name, baseHealth, level, type) {}
+Enemy::Enemy(const char* name, int baseHealth, int level, int type) : Mon(name, baseHealth, level, type) {}
 
 Enemy::~Enemy() {
     for (auto attack : attacks) {

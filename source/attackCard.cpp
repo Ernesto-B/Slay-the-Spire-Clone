@@ -2,7 +2,7 @@
 #include "attackCard.h"
 // #include "card.h"
 
-AttackCard::AttackCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr) : Card(name, desc, cost, dmg, block), statusEffect(statusEffect) {
+AttackCard::AttackCard(const char* name, const char* desc, int cost, int dmg, int block, StatusEffect* statusEffect) : Card(name, desc, cost, dmg, block), statusEffect(statusEffect) {
     this->cardType = new char[strlen("Attack") + 1];
     strcpy(this->cardType, "Attack");
 }

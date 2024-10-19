@@ -1,7 +1,7 @@
 // player.cpp
 #include "player.h"
 
-Player::Player(const char* name, int baseHealth = 0, int level = 1, int type = 0, int energy = 3, Deck* initialDeck) : Mon(name, baseHealth = 0, level = 1, type = 0), energy(energy), currentEnergy(energy), deck(*initialDeck) {
+Player::Player(const char* name, int baseHealth, int level, int type, int energy, Deck* initialDeck) : Mon(name, baseHealth, level, type), energy(energy), currentEnergy(energy), deck(*initialDeck) {
 
 }
 
@@ -71,11 +71,12 @@ void Player::useCard(Card* card, Mon* target) {
 }
 
 void Player::removeCardFromHand(int index) {
-    if (index >= 0 && index < hand.size()) {
-        discardPile.push_back(hand[index]);     // move to discard pile
-        hand.erase(hand.begin() + index);   // remove card from hand
+    if (index >= 0 && static_cast<size_t>(index) < hand.size()) {
+        discardPile.push_back(hand[index]);  // move to discard pile
+        hand.erase(hand.begin() + index);    // remove card from hand
     }
 }
+
 
 int Player::getEnergy() const {
     return this->energy;

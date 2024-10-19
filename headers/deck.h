@@ -13,7 +13,7 @@ class Deck {
         vector<Card*> cards;
 
     public:
-        Deck(char* deckName);
+        Deck(const char* deckName);
         ~Deck();
 
         void addCard(Card* card);

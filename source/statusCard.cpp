@@ -1,7 +1,7 @@
 // statusCard.cpp
 #include "statusCard.h"
 
-StatusCard::StatusCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr) : Card(name, desc, cost, dmg, block), statusEffect(statusEffect) {
+StatusCard::StatusCard(const char* name, const char* desc, int cost, int dmg, int block, StatusEffect* statusEffect) : Card(name, desc, cost, dmg, block), statusEffect(statusEffect) {
     this->cardType = new char[strlen("Status") + 1];
     strcpy(this->cardType, "Status");
 }

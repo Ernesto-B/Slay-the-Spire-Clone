@@ -6,7 +6,10 @@
 #include <algorithm>  // for std::remove_if
 #include <cstring>
 #include <vector>
+using namespace std;
 #include "statusEffect.h"
+
+class StatusEffect;
 
 class Mon {
     private:
