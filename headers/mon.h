@@ -16,13 +16,11 @@ class Mon {
         int currentHealth;
         int level;  // influences health
         int type;   // type weakness or resistance?
-        Attack* attack1;    // Not sure if used for enemy class
-        Attack* attack2;    // Not sure if used for enemy class
         int block;
         vector<StatusEffect*> activeEffects;    // Maybe limit the size of this?
 
     public:
-        Mon(const char* name, int baseHealth, int level, int type = 0);
+        Mon(const char* name, int baseHealth = 0, int level = 1, int type = 0);
         ~Mon();
         
         Mon(const Mon& other);  // copy constructor
@@ -32,7 +30,6 @@ class Mon {
         int getHealth() const;
         int getCurrentHealth() const;
         void printInfo() const;
-        void printAttacks() const;
 
         void changeBlock(int amount);
 

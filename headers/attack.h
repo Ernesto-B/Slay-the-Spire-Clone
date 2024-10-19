@@ -4,19 +4,23 @@
 
 #include <iostream>
 #include <cstring>
+#include "statusEffect.h"
 
 class Attack {
     private:
-        int dmg;
         char* attackName;
         int type;
+        int dmg;
+        StatusEffect* statusEffect;
+        int effectDuration;
 
     public:
-        Attack(int dmg, const char* attackName, int type);
+        Attack(const char* attackName, int type, int dmg, StatusEffect* statusEffect = nullptr, int effectDuration = 0);
         ~Attack();
         
         int getDmg();
         const char* getAtkName();
+        void applyEffect(Mon* target) const;
 };
 
 #endif

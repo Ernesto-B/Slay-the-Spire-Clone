@@ -4,15 +4,16 @@ using namespace std;
 # include <cstring>
 # include "attack.h"
 
-Attack::Attack(int dmg, const char* attackName, int type) {
-    this->dmg = dmg;
+Attack::Attack(const char* attackName, int type, int dmg, StatusEffect* statusEffect = nullptr, int effectDuration = 0) : dmg(dmg), type(type), effectDuration(effectDuration) {
     this->attackName = new char[strlen(attackName) + 1];
     strcpy(this->attackName, attackName);
-    this->type = type;
 }
 
 Attack::~Attack() {
-    delete[] attackName;  // Free the dynamically allocated memory for attackName
+    delete[] attackName;
+    if (this->statusEffect) {
+        delete this->statusEffect;
+    }
 }
 
 int Attack::getDmg() {
@@ -21,4 +22,12 @@ int Attack::getDmg() {
 
 const char* Attack::getAtkName() {
     return this->attackName;
+}
+
+void Attack::applyEffect(Mon* target) const {
+    if (this->statusEffect) {
+        StatusEffect* effectCopy = this->statusEffect->clone();
+        effectCopy->setDuration(this->effectDuration);
+        target->addStatusEffect(effectCopy);
+    }
 }
