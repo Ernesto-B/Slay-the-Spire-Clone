@@ -9,10 +9,9 @@ class BlockCard : public Card {
     private:    
         char* cardType;
         StatusEffect* statusEffect;
-        int effectDuration;
 
     public:
-        BlockCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr, int effectDuration = 0);
+        BlockCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr);
         BlockCard(const BlockCard& other);  // Copy constructor
         BlockCard& operator=(const BlockCard& other);   // Assignment operator
         ~BlockCard();

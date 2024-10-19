@@ -2,6 +2,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "mon.h"
+#include "attack.h"
 #include "player.h"     // To target the player??
 
 class Enemy: public Mon {

@@ -6,7 +6,6 @@
 #include <algorithm>  // for std::remove_if
 #include <cstring>
 #include <vector>
-#include "attack.h"
 #include "statusEffect.h"
 
 class Mon {

@@ -9,10 +9,9 @@ class StatusCard : public Card {
     private:    
         char* cardType;
         StatusEffect* statusEffect;
-        int effectDuration;
 
     public:
-        StatusCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr, int effectDuration = 0);
+        StatusCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr);
         StatusCard(const StatusCard& other);  // Copy constructor
         StatusCard& operator=(const StatusCard& other);   // Assignment operator
         ~StatusCard();

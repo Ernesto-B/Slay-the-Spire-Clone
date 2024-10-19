@@ -3,16 +3,17 @@
 #ifndef ATTACKCARD_H
 #define ATTACKCARD_H
 #include "card.h"
-#include "statusEffect.h"
+#include "poisonEffect.h"
+#include "paralyzeEffect.h"
+#include "healingEffect.h"
 
 class AttackCard : public Card {
     private:    
         char* cardType;
         StatusEffect* statusEffect;
-        int effectDuration;
         
     public:
-        AttackCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr, int effectDuration = 0);
+        AttackCard(const char* name, const char* desc, int cost, int dmg, int block = 0, StatusEffect* statusEffect = nullptr);
         AttackCard(const AttackCard& other);    // Copy constructor
         AttackCard& operator=(const AttackCard& other);  // Assignment operator
         ~AttackCard();

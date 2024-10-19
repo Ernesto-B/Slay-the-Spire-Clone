@@ -42,6 +42,10 @@ Card::~Card() {
     delete[] this->desc;
 }
 
+char* Card::getName() const {
+    return this->name;
+}
+
 int Card::getCost() const {
     return this->cost;
 }

@@ -18,8 +18,9 @@ class Card {
         Card(const char* name, const char* desc, int cost, int dmg, int block);
         Card(const Card& other);    // Copy constructor
         Card& operator=(const Card& other);    // Assginment constructor
-        ~Card();
+        virtual ~Card();    // virtual to enable dynamic_cast
         
+        char* getName() const;
         int getCost() const;
         int getDmg() const;
         int getBlock() const;
