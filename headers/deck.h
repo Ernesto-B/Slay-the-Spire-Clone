@@ -5,6 +5,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>    // for std::shuffle()
+#include <cstring>
 
 class Deck {
     private:
@@ -18,7 +19,7 @@ class Deck {
         void addCard(Card* card);
         Card* drawCard();
         void shuffleDeck();
-        void resetDeck();
+        void resetDeck(vector<Card*>& discardPile);
         int getSize() const;
         char* getName() const;
 };

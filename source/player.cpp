@@ -16,13 +16,13 @@ Player::~Player() {
     discardPile.clear();
 }
 
-void Player::takeTurn() {
+void Player::takeTurn(GameFrame* gameFrame, vector<Mon*>& enemies) {
 
 }
 
 void Player::endTurn() {
-    // Maybe set a flag to be used in the gameFrame file?
-
+    printf("%s ends their turn.\n", getName());
+    processEndTurnEffects();
     this->resetEnergy();
 }
 
@@ -31,9 +31,15 @@ void Player::drawCard() {
     if (drawnCard) {
         hand.push_back(drawnCard);
     } else {
-        deck.resetDeck();   // to be implemented
+        deck.resetDeck(discardPile); // Pass discardPile to reset the deck.
+        // Try drawing a card again after resetting.
+        drawnCard = deck.drawCard();
+        if (drawnCard) {
+            hand.push_back(drawnCard);
+        }
     }
 }
+
 
 void Player::useCard(Card* card, Mon* target) {
     // Check if the player has enough energy.
@@ -64,6 +70,12 @@ void Player::useCard(Card* card, Mon* target) {
     discardPile.push_back(card);
 }
 
+void Player::removeCardFromHand(int index) {
+    if (index >= 0 && index < hand.size()) {
+        discardPile.push_back(hand[index]);     // move to discard pile
+        hand.erase(hand.begin() + index);   // remove card from hand
+    }
+}
 
 int Player::getEnergy() const {
     return this->energy;
@@ -93,4 +105,12 @@ void Player::loseEnergy(int amount) {
     } else {
         this->currentEnergy -= amount;
     }
+}
+
+const vector<Card*>& Player::getHand() const {
+    return hand;
+}
+
+const Deck& Player::getDeck() const {
+    return deck;
 }

@@ -4,7 +4,6 @@
 
 #include <iostream>
 using namespace std;
-#include <cstring>
 
 class Card {
     private:
@@ -25,6 +24,7 @@ class Card {
         int getDmg() const;
         int getBlock() const;
         void printCardInfo() const;
+        char* getDescription() const;
 };
 
 #endif

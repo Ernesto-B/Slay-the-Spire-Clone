@@ -63,3 +63,7 @@ void Card::printCardInfo() const {
     printf("%s\n", this->desc);
     printf("%d\t%d\n", this->dmg, this->block);
 }
+
+char* Card::getDescription() const {
+    return this->desc;
+}

@@ -32,8 +32,11 @@ void Deck::shuffleDeck() {
     shuffle(cards.begin(), cards.end(), g);
 }
 
-void Deck::resetDeck() {
-
+void Deck::resetDeck(vector<Card*>& discardPile) {
+    printf("Reshuffling discard pile into deck...\n");
+    this->cards.insert(cards.end(), discardPile.begin(), discardPile.end());
+    discardPile.clear();
+    shuffleDeck();
 }
 
 int Deck::getSize() const {
