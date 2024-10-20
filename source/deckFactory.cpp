@@ -10,15 +10,16 @@ Deck* DeckFactory::createDefaultDeck() {
     Deck* deck = new Deck("Default Deck");
 
     // Normal cards here (makes *4 of them).
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 2; ++i) {
         deck->addCard(new AttackCard("Strike", "Deal 4 damage.", 1, 4, 0));
         deck->addCard(new BlockCard("Defend", "Gain 3 block.", 1, 0, 3));
     }
 
     // Strong cards here (makes *3 of them).
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 2; ++i) {
         // Pass only the effect as the `StatusCard` will use the `duration` from the status effect itself.
         deck->addCard(new StatusCard("Burp", "Poison the opponent for 2 turns.", 2, 0, 0, poison));
+        deck->addCard(new StatusCard("Heal", "Heal 2 for 3 turns.", 2, 0, 0, healing));
     }
 
     // Super rare cards here (makes *1 of them).

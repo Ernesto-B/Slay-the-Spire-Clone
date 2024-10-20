@@ -30,6 +30,7 @@ class Player : public Mon {
         void removeCardFromHand(int index);
 
         int getEnergy() const;
+        int getCurrentEnergy() const;
         void setMaxEnergy(int energy);
         void changeEnergy(int amount);
         void resetEnergy();  // Helper func for endTurn() 

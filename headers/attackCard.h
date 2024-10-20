@@ -19,7 +19,7 @@ class AttackCard : public Card {
         ~AttackCard();
 
         const char* getCardType() const;
-        void applyEffect(Mon* target) const;
+        void applyEffect(Mon* user, Mon* target) const override;
 };
 
 #endif

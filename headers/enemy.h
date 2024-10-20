@@ -17,6 +17,8 @@ class Enemy: public Mon {
 
         void attack(Player* player, Attack* chosenAttack);
         void takeTurn(Player* Player);    // algo for decision making or something
+        void endTurn();
+        void processEndTurnEffects();
         void addAttack(Attack* attack);
 };
 

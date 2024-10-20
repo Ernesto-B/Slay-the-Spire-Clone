@@ -22,11 +22,16 @@ void Player::takeTurn(GameFrame* gameFrame, vector<Mon*>& enemies) {
 
 void Player::endTurn() {
     printf("%s ends their turn.\n", getName());
-    processEndTurnEffects();
+    processEndTurnEffects();    // trouble
     this->resetEnergy();
 }
 
 void Player::drawCard() {
+    if (hand.size() >= 5) {
+        printf("Cannot draw more cards. Hand size limit reached.\n");
+        return;
+    }
+    
     Card* drawnCard = deck.drawCard();
     if (drawnCard) {
         hand.push_back(drawnCard);
@@ -42,26 +47,24 @@ void Player::drawCard() {
 
 
 void Player::useCard(Card* card, Mon* target) {
-    // Check if the player has enough energy.
-    if (card->getCost() > currentEnergy) {
-        printf("Not enough energy to use %s\n", card->getName());
-        return;
-    }
-
     loseEnergy(card->getCost());
 
     // Apply effects based on the card type using dynamic_cast.
     if (AttackCard* attackCard = dynamic_cast<AttackCard*>(card)) {
         target->takeDmg(attackCard->getDmg());
-        attackCard->applyEffect(target);  // Apply status effect if any.
+        attackCard->applyEffect(this, target);  // Apply status effect if any.
         printf("%s uses %s, dealing %d damage!\n", this->getName(), card->getName(), attackCard->getDmg());
     } else if (BlockCard* blockCard = dynamic_cast<BlockCard*>(card)) {
         this->changeBlock(blockCard->getBlock());
-        blockCard->applyEffect(this);  // Apply status effect if any.
+        blockCard->applyEffect(this, this);  // Apply status effect to self, if any.
         printf("%s uses %s, gaining %d block!\n", this->getName(), card->getName(), blockCard->getBlock());
     } else if (StatusCard* statusCard = dynamic_cast<StatusCard*>(card)) {
-        statusCard->applyEffect(target);
-        printf("%s uses %s, applying a status effect.\n", this->getName(), card->getName());
+        // Check if the effect should target the user or the target
+        if (statusCard->getEffectTarget() == EffectTarget::SELF) {
+            statusCard->applyEffect(this, this);  // Apply status effect to self
+        } else {
+            statusCard->applyEffect(this, target);  // Apply status effect to target
+        }
     } else {
         printf("%s uses an unknown card!\n", this->getName());
     }
@@ -80,6 +83,10 @@ void Player::removeCardFromHand(int index) {
 
 int Player::getEnergy() const {
     return this->energy;
+}
+
+int Player::getCurrentEnergy() const {
+    return this->currentEnergy;
 }
 
 void Player::setMaxEnergy(int energy) {

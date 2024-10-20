@@ -2,6 +2,7 @@
 #ifndef GAMEFRAME_H
 #define GAMEFRAME_H
 #include <limits>   // for input validation with std::cin
+#include <sstream>  // for std::ostringstream
 #include <string>
 #include <vector>
 using namespace std;
@@ -27,6 +28,7 @@ class GameFrame {
         void checkWinCondition();
         void endGame();
 
+        void displayPlayer(const Player* player) const;
         void displayHand(const Player* player) const;
         void displayEnemies(const vector<Enemy*>& enemies) const;
         std::string promptCardSelection() const;

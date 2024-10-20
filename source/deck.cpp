@@ -1,5 +1,6 @@
 // deck.cpp
 #include "deck.h"
+#include <ctime>    // Used for creating the random seed for shuffling the deck
 
 Deck::Deck(const char* deckName) {
     this->deckName = new char[strlen(deckName) + 1];
@@ -27,9 +28,11 @@ Card* Deck::drawCard() {
 }
 
 void Deck::shuffleDeck() {
-    random_device rd;
-    mt19937 g(rd());
+    unsigned seed = static_cast<unsigned>(std::time(0)) + (rand() % 100);
+    mt19937 g(seed);
     shuffle(cards.begin(), cards.end(), g);
+
+    printf("Deck shuffled!\n");
 }
 
 void Deck::resetDeck(vector<Card*>& discardPile) {

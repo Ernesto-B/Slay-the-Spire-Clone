@@ -17,7 +17,7 @@ class BlockCard : public Card {
         ~BlockCard();
 
         const char* getCardType() const;
-        void applyEffect(Mon* target) const;       
+        void applyEffect(Mon* user, Mon* target) const override;       
 };
 
 #endif

@@ -13,7 +13,7 @@ Enemy::~Enemy() {
 
 void Enemy::attack(Player* player, Attack* chosenAttack) {    // helper function
     printf("%s uses %s!\n", this->getName(), chosenAttack->getAtkName());
-    this->takeDmg(chosenAttack->getDmg());
+    player->takeDmg(chosenAttack->getDmg());
     chosenAttack->applyEffect(player);
 }
 
@@ -27,6 +27,13 @@ void Enemy::takeTurn(Player* player) {
 
     // Attack the player
     attack(player, chosenAttack);
+
+    // End the turn
+    endTurn();
+}
+
+void Enemy::endTurn() {
+    Mon::processEndTurnEffects();
 }
 
 void Enemy::addAttack(Attack* attack) {

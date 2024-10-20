@@ -31,6 +31,9 @@ class Mon {
         char* getName() const;
         int getHealth() const;
         int getCurrentHealth() const;
+        int getLv() const;
+        int getBlock() const;
+        const vector<StatusEffect*>& getActiveEffects() const {return activeEffects;}
         void printInfo() const;
 
         void changeBlock(int amount);

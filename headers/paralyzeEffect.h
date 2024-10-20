@@ -13,12 +13,14 @@ class ParalyzeEffect : public StatusEffect {
     public:
         ParalyzeEffect(int duration);
 
-        void apply(Mon* target) override;
+        void apply(Mon* user, Mon* target) override;
         void endTurn(Mon* target) override;
         bool isExpired() const override;
         
         StatusEffect* clone() const override;
         void setDuration(int duration) override;
+
+        const char* getName() const;
 };
 
 #endif

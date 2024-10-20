@@ -15,9 +15,20 @@ void GameFrame::addEnemy(Enemy* enemy) {
 }
 
 void GameFrame::playerTurn() {
-    printf("\n--- Player's Turn ---\n");
+    printf("\n--- PLAYER'S TURN ---\n");
+
+    if (turnNumber == 1) {
+        player->drawCard();
+        player->drawCard();
+        player->drawCard();
+        player->drawCard();
+    }
+
+    player->drawCard();
+
     while (true) {
         // Display the player's hand and enemies.
+        displayPlayer(player);
         displayHand(player);
         displayEnemies(enemies);
 
@@ -26,6 +37,11 @@ void GameFrame::playerTurn() {
         if (cardInput == "q") {
             printMessage("Ending your turn.");
             break;
+        }
+
+        if (cardInput == "end") {
+            printMessage("Ending game.");
+            exit(0);
         }
 
         // Convert cardInput to an index.
@@ -44,6 +60,10 @@ void GameFrame::playerTurn() {
 
         // Get the selected card.
         Card* chosenCard = player->getHand()[cardIndex];
+        if (chosenCard->getCost() > player->getCurrentEnergy()) {
+            printf("Not enough energy to use this card.\n");
+            continue;
+        }
 
         // Prompt for target selection.
         int targetIndex = promptTargetSelection(enemies);
@@ -62,10 +82,11 @@ void GameFrame::playerTurn() {
         player->removeCardFromHand(cardIndex);
     }
     turnNumber++;
+    player->endTurn();
 }
 
 void GameFrame::enemyTurn() {
-    printf("\n--- Enemies' Turn ---\n");
+    printf("\n--- ENEMIES' TURN ---\n");
     for (Enemy* enemy : enemies) {
         if (enemy->getCurrentHealth() > 0) {
             enemy->takeTurn(player);
@@ -100,16 +121,34 @@ void GameFrame::endGame() {
     exit(0);  // Terminate. Maybe set a flag to exit the game loop
 }
 
+void GameFrame::displayPlayer(const Player* player) const {
+    printf("\n---- Player Status ----\n");
+    printf("%s (HP: %d+%d/%d)\tLv: %d\tEnergy: %d/%d\t", player->getName(), player->getBlock(), player->getCurrentHealth(), player->getHealth(), player->getLv(), player->getCurrentEnergy(), player->getEnergy());
+
+    // Get the player's active status effects.
+    const vector<StatusEffect*>& effects = player->getActiveEffects();
+    std::ostringstream effectsStream;
+    if (effects.empty()) {
+        effectsStream << "None";
+    } else {
+        for (size_t i = 0; i < effects.size(); ++i) {
+            effectsStream << effects[i]->getName();
+            if (i < effects.size() - 1) {
+                effectsStream << ", ";
+            }
+        }
+    }
+    
+    // Print all status effects in one line.
+    printf("Status Effects: %s\n", effectsStream.str().c_str());
+}
 
 void GameFrame::displayHand(const Player* player) const {
     const vector<Card*>& hand = player->getHand();
     printf("\n---- Your Hand ----\n");
     for (size_t i = 0; i < hand.size(); ++i) {
-        printf("[%lu] %s (Cost: %d)\t", static_cast<unsigned long>(i), hand[i]->getName(), hand[i]->getCost());
-    }
-    printf("\n");
-    for (size_t i = 0; i < hand.size(); ++i) {
-        printf("    %s\n", hand[i]->getDescription());
+        printf("[%lu] %s (Cost: %d) \t", static_cast<unsigned long>(i), hand[i]->getName(), hand[i]->getCost());
+        printf("%s\n", hand[i]->getDescription());
     }
     printf("\n-------------------\n");
 }
@@ -117,12 +156,30 @@ void GameFrame::displayHand(const Player* player) const {
 void GameFrame::displayEnemies(const vector<Enemy*>& enemies) const {
     printf("\n---- Enemies ----\n");
     for (size_t i = 0; i < enemies.size(); ++i) {
-        printf("[%lu] %s (HP: %d/%d)\n", static_cast<unsigned long>(i), enemies[i]->getName(), enemies[i]->getCurrentHealth(), enemies[i]->getHealth());
+        printf("[%lu] %s (HP: %d/%d)\tStatus Effects: ", 
+               static_cast<unsigned long>(i), 
+               enemies[i]->getName(), 
+               enemies[i]->getCurrentHealth(), 
+               enemies[i]->getHealth());
+
+        // Get the enemy's active status effects.
+        const vector<StatusEffect*>& effects = enemies[i]->getActiveEffects();
+        if (effects.empty()) {
+            printf("None");
+        } else {
+            std::ostringstream effectsStream;
+            for (size_t j = 0; j < effects.size(); ++j) {
+                effectsStream << effects[j]->getName();
+                if (j < effects.size() - 1) {
+                    effectsStream << ", ";
+                }
+            }
+            printf("%s", effectsStream.str().c_str());
+        }
+        printf("\n");
     }
     printf("-----------------\n");
 }
-
-
 
 std::string GameFrame::promptCardSelection() const {
     char input[10];

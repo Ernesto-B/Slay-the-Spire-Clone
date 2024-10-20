@@ -49,6 +49,13 @@ int Mon::getCurrentHealth() const {
     return this->currentHealth;
 }
 
+int Mon::getLv() const {
+    return this->level;
+}
+
+int Mon::getBlock() const {
+    return this->block;
+}
 
 void Mon::printInfo() const {
     printf("\n%s\t %d\n", this->name, this->type);
@@ -65,8 +72,9 @@ void Mon::changeBlock(int amount) {
 }
 
 void Mon::addStatusEffect(StatusEffect* effect) {
+    printf("DEBUG: adding status effect to target (mon.cpp)\n");
     this->activeEffects.push_back(effect);
-    effect->apply(this);
+    effect->apply(this, this);
 }
 
 void Mon::processEndTurnEffects() {
@@ -89,16 +97,26 @@ void Mon::cleanupExpiredEffects() {
 }
 
 void Mon::takeDmg(int amount) {
-    if (this->block >= amount) {
-        this->block -= amount;
-    } else {
-        int remainingDmg = amount - this->block;
-        this->block = 0;
-        this->health -= remainingDmg;
-
-        if (this->currentHealth < 0) {
-            this->currentHealth = 0;    // to prevent it from going negative
+    if (this->block > 0) {
+        if (this->block >= amount) {
+            this->block -= amount;
+            printf("%s absorbed %d damage with block. Remaining block: %d\n", this->getName(), amount, this->block);
+        } else {
+            // Block absorbs part of the damage, and the remaining damage is applied to health.
+            int remainingDmg = amount - this->block;
+            this->block = 0;
+            this->currentHealth -= remainingDmg;
+            printf("\n%s took %d damage after block. Remaining health: %d\n", this->getName(), remainingDmg, this->currentHealth);
         }
+    } else {
+        // No block, take full damage.
+        this->currentHealth -= amount;
+        printf("\n%s took %d damage directly. Remaining health: %d\n", this->getName(), amount, this->currentHealth);
+    }
+
+    // Ensure health doesn't go negative.
+    if (this->currentHealth < 0) {
+        this->currentHealth = 0;
     }
 }
 

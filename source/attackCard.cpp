@@ -49,9 +49,13 @@ const char* AttackCard::getCardType() const {
     return this->cardType;
 }
 
-void AttackCard::applyEffect(Mon* target) const {
+void AttackCard::applyEffect(Mon* user, Mon* target) const {
     if (this->statusEffect) {
         StatusEffect* effectCopy = statusEffect->clone();
-        target->addStatusEffect(effectCopy);
-    }    
+        if (effectCopy->getEffectTarget() == EffectTarget::SELF) {
+            effectCopy->apply(user, user);  // Apply effect to the user
+        } else {
+            effectCopy->apply(user, target);  // Apply effect to the target
+        }
+    }
 }

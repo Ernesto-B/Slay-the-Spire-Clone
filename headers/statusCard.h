@@ -17,7 +17,8 @@ class StatusCard : public Card {
         ~StatusCard();
 
         const char* getCardType() const;
-        void applyEffect(Mon* target) const;       
+        EffectTarget getEffectTarget() const;
+        void applyEffect(Mon* user, Mon* target) const override;      
 };
 
 #endif

@@ -48,9 +48,20 @@ const char* StatusCard::getCardType() const {
     return this->cardType;
 }
 
-void StatusCard::applyEffect(Mon* target) const {
+EffectTarget StatusCard::getEffectTarget() const {
+    if (this->statusEffect) {
+        return this->statusEffect->getEffectTarget();
+    }
+    return EffectTarget::TARGET;  // Default to TARGET if no statusEffect is present
+}
+
+void StatusCard::applyEffect(Mon* user, Mon* target) const {
     if (this->statusEffect) {
         StatusEffect* effectCopy = statusEffect->clone();
-        target->addStatusEffect(effectCopy);
-    }    
+        if (effectCopy->getEffectTarget() == EffectTarget::SELF) {
+            user->addStatusEffect(effectCopy);  // Add effect to the user
+        } else {
+            target->addStatusEffect(effectCopy);  // Add effect to the target
+        }
+    }
 }

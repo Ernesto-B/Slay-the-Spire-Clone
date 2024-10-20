@@ -8,6 +8,7 @@ class DeckFactory;
 int main() {
     // Create a deck using the DeckFactory.
     Deck* playerDeck = DeckFactory::createDefaultDeck();
+    // playerDeck->shuffleDeck();  // redundant? Already shuffling inside DeckFactory
 
     // Create a player with the initial deck.
     Player* player = new Player("Hero", 10, 1, 0, 3, playerDeck);
@@ -28,8 +29,8 @@ int main() {
 
     // Add enemies to the game.
     gameFrame.addEnemy(goblin);
-    gameFrame.addEnemy(orc);
-    gameFrame.addEnemy(dragon);
+    // gameFrame.addEnemy(orc);
+    // gameFrame.addEnemy(dragon);
 
     // Start the game loop.
     while (true) {

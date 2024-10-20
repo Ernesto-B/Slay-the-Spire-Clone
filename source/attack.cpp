@@ -7,6 +7,7 @@ using namespace std;
 Attack::Attack(const char* attackName, int type, int dmg, StatusEffect* statusEffect, int effectDuration) : type(type), dmg(dmg), effectDuration(effectDuration) {
     this->attackName = new char[strlen(attackName) + 1];
     strcpy(this->attackName, attackName);
+    this->statusEffect = statusEffect;
 }
 
 Attack::~Attack() {
@@ -27,7 +28,9 @@ const char* Attack::getAtkName() {
 void Attack::applyEffect(Mon* target) const {
     if (this->statusEffect) {
         StatusEffect* effectCopy = this->statusEffect->clone();
-        effectCopy->setDuration(this->effectDuration);
-        target->addStatusEffect(effectCopy);
+        if (effectCopy) {
+            effectCopy->setDuration(this->effectDuration);
+            target->addStatusEffect(effectCopy);
+        }
     }
 }

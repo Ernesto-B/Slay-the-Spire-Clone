@@ -2,12 +2,12 @@
 #include <iostream>
 #include "healingEffect.h"
 
-HealingEffect::HealingEffect(int healingAmount, int duration) : healingAmount(healingAmount), duration(duration) {
+HealingEffect::HealingEffect(int healingAmount, int duration) : StatusEffect(EffectTarget::SELF), healingAmount(healingAmount), duration(duration) {
 
 }
 
-void HealingEffect::apply(Mon* target) {
-    printf("%s is healing for %d turns.\n", target->getName(), this->duration);
+void HealingEffect::apply(Mon* user, Mon* target) {
+    printf("%s is healing for %d turns.\n", user->getName(), this->duration);
 }
 
 void HealingEffect::endTurn(Mon* target) {
@@ -28,4 +28,8 @@ StatusEffect* HealingEffect::clone() const {
 
 void HealingEffect::setDuration(int duration) {
     this->duration = duration;
+}
+
+const char* HealingEffect::getName() const {
+    return "Healing";
 }

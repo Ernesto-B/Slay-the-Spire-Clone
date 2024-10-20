@@ -5,6 +5,8 @@
 #include <iostream>
 using namespace std;
 
+class Mon;
+
 class Card {
     private:
         char* name;
@@ -25,6 +27,8 @@ class Card {
         int getBlock() const;
         void printCardInfo() const;
         char* getDescription() const;
+
+        virtual void applyEffect(Mon* user, Mon* target) const {};
 };
 
 #endif

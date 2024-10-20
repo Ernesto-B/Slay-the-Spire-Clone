@@ -3,9 +3,9 @@
 #include "poisonEffect.h"
 
 PoisonEffect::PoisonEffect(int poisonDamage, int duration) 
-    : poisonDamage(poisonDamage), duration(duration) {}
+    : StatusEffect(EffectTarget::TARGET), poisonDamage(poisonDamage), duration(duration) {}
 
-void PoisonEffect::apply(Mon* target) {
+void PoisonEffect::apply(Mon* user, Mon* target) {
     printf("%s is poisoned for %d turns.\n", target->getName(), this->duration);
 }
 
@@ -22,9 +22,15 @@ bool PoisonEffect::isExpired() const {
 }
 
 StatusEffect* PoisonEffect::clone() const {
+    printf("DEBUG: Cloning PoisonEffect (poisonEffect.cpp)\n");
     return new PoisonEffect(poisonDamage, duration);
 }
 
+
 void PoisonEffect::setDuration(int duration) {
     this->duration = duration;
+}
+
+const char* PoisonEffect::getName() const {
+    return "Poison";
 }
