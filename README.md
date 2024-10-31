@@ -15,7 +15,7 @@ Create a simplified, terminal-based version of *Slay the Spire*, a strategic dec
 ## Getting Started
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Ernesto-B/Slay-the-Spire-Clone.git
    cd Slay-the-Spire-Clone
 2. Build the project: (requires having `make` installed)
    ```bash
@@ -29,3 +29,6 @@ Create a simplified, terminal-based version of *Slay the Spire*, a strategic dec
 - **Advanced AI**: Improve enemy AI to provide a more challenging and adaptive combat experience.
 ## Contributing
 Contributions are welcome! If you have suggestions or want to contribute to the project, feel free to submit a pull request or open an issue.
+## Currently in Development
+- Fixing status effects not applying consistently
+- Adding stages
